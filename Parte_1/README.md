@@ -1,7 +1,7 @@
-### Introducción
+# Introducción
 
 
-# Ciberseguridad y rol de analista CyberSOC.
+## Ciberseguridad y rol de analista CyberSOC.
 
 
 -- Que es la ciberseguridad:
@@ -35,7 +35,7 @@
 
 
 
-# Ecosistema de la Ciberseguridad.
+## Ecosistema de la Ciberseguridad.
 
 
     La ciberseguridad abarca varias disciplinas y roles, uno de ellos es el Analista CyberSOC, encargado de 
@@ -66,7 +66,7 @@
 
 
 
-# Herramientas Esenciales para el Analista CyberSOC.
+## Herramientas Esenciales para el Analista CyberSOC.
 
     SIEM (Security Information and Event Management): Herramientas que recopilan, analisan y correlacionan 
     datos de múltiples fuentes, (ejemplo: Wazuh, Splunk, Elastic).
@@ -82,7 +82,7 @@
 
 
 
-# Retos del Analista CyberSOC.
+## Retos del Analista CyberSOC.
 
     Ruidos de alertas: Gran volumen de falsos positivos que pueden dificultar la detección de amenazas reales.
 
@@ -101,7 +101,7 @@
 
 
 
-# Por qué es importante este rol?.
+## Por qué es importante este rol?.
 
     Los Analistas CyberSOC son la primera linea de defensa en un mundo digital lleno de riesgos, sin ellos las 
     organizaciónes estarian indefensas ante ataques que podrian compromenter datos sensibles, interrumpir 
@@ -109,7 +109,7 @@
 
 
 
-### Fundamentos de los incidentes de Ciberseguridad.
+# Fundamentos de los incidentes de Ciberseguridad.
 
 
 -- Qué es un incidente de Ciberseguridad?:
