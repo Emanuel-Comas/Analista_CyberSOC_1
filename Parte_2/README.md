@@ -227,3 +227,177 @@ de manera eficiente.
 
 
 # Identificación y priorización de alertas.
+
+    Aprender a identificar, categorizar y priorizar las alertas generadas por sistemas SIEM, optimizando 
+    la capacidad de respuesta frente a incidentes de seguridad.
+
+
+
+## Qué es la identificación de alertas?.
+
+    La identificación de alertas de reconocer eventos de seguridad relevantes generados por el SIEM y 
+    diferenciarlos de aquellos que no representan riesgos reales, esto implica analizar patrones, 
+    correlaciones y datos contextuales para determinar si una alerta debe ser investigada.
+
+
+-- Pasos para la identificación de alertas:
+
+    Revisión inicial de alertas: Examinar los eventos generados por el SIEM.
+
+    Análisis de contexto: Evaluar el origen, destino, hora y tipo de evento.
+
+    Validación preliminar: Confirmar si la alerta corresponde a un comportamiento anomalo o 
+    malicioso.
+
+
+-- Ejemplo de validación exitosa: 
+
+    Alerta: Inicio de sesión desde una ubicación geográfica inusual.
+
+    Análisis: Verificar si el usuario esta viajando o si las credenciales fueron comprometidas.
+
+    Resultado: Decidir si se escala la alerta o se descarta como un evento legitimo.
+
+
+
+## La importancia de la priorización de alertas.
+
+    No todas als alertas tienen el mismo nivel de urgencias, sin una priorización adecauada, el equipo 
+    de seguridad podria perder tiempo en falsos positivos o eventos irrelevantes, descuidando 
+    amenazas criticas.
+
+
+-- Factores para priorizar alertas:
+
+    Impacto en la organización: Qué tan critico es el sistema o dato afectado?.
+
+    Probabilidad de amenazas: Basadas en comportameinto anómalo, patrones conocidos o inteligencia 
+    de amenazas.
+
+    Contexto: Correlacion con otros eventos relevantes.
+
+
+-- Clasificación de prioridades:
+
+    Baja: Eventos que no presentan riesgos inmediatos, por ejemplo, intentos de escaneo de puertos.
+
+    Media: Eventos que podrian escalar en amenazas, por ejemplo, actividad sospechosa de cuentas privilegiadas.
+
+    Alta: Amenazas confirmadas o con impacto critico, por ejemplo, malware detectado en un servidor.
+
+
+
+## Metodologías para la priorización de alertas.
+
+
+
+-- Análisis basado de impacto y probabilidad:
+
+    Este metodo evalúa 2 factores:
+
+        Impacto potencial: Qué tan grave seria el daño si al amenaza se materializa.
+
+        Probabilidad de ocurrencia: Basada en patrones historicos y comportamientos.
+
+
+-- Uso de inteligencia de amenazas:
+
+    Integrar feeds de inteligencia de amenazas para enriquecer las alertas, por ejemplo, una alerta 
+    vinculada a una IP marcada como maliciosa tiene mayor prioridad.
+
+
+-- Score de alertas (Sistema Automático):
+
+    Algunos SIEM asignan automáticamente un puntaje a las alertas basado en criterios predefinidos, por 
+    ejemplo, Wazuh con reglas OSSEC (Open Souce Security Event Correlator).
+
+
+## Actividad práctica (Priorización de alertas.)
+
+
+-- Objetivo:
+
+    Aprender a clasificar y priorizar alertas en un entorno simulado.
+
+
+-- Escenario simulado:
+
+    El SIEM ha generado las siguientes alertas, clasificadas en baja, media o alta prioridad, y define 
+    el protocolo de respuesta.
+
+    Alerta 1: Intentos de inicio de sesion fallidos desde una misma IP durante 2 minutos.
+
+    Alerta 2: Transferencia de datos a una dirección IP clasificada como maliciosa.
+
+    Alerta 3: Instalación de un programa no autorizado en un endpoint.
+
+    Alerta 4:   Inicio de sesion de un servidor critico desde una ubicacion no habitual.
+
+
+-- Instrucciones para la actividad:
+
+    1: Evalúa cada alerta con base en su impacto y probabilidad
+
+    2: Clasifica la alerta según la prioridad (baja, merdia, alta).
+
+    3: Escribe un protocolo de respuesta para la alerta mas critica.
+
+
+-- Entrega esperada:
+
+    -- Un informe breve que detalle:
+
+        1: Clasificación de cada alerta.
+
+        2: Razón detras de la clasificación.
+
+        3: Respuesta inmediata sugerida sugerida para alerta de mayor prioridad.
+
+
+
+## Falsos positivos y como gestionarlos.
+
+    Los falsos positivos son alertas que, tras investigarse, se determinan inofensivas, estos pueden 
+    consumir recursos y distraer a los análisis.
+
+
+-- Ejemplo de falso positivo:
+
+    Alerta: Inicio de sesion desde una ubicación inusual.
+
+    Investigación: Se verifica que el usuario estaba de viaje.
+
+    Resultado: Se clasifica como un evento legitimo.
+
+
+-- Cómo reducir falsos positivos:
+
+    Ajustar reglas SIEM para evitar sensibilidad excesivas.
+
+    Implementar listas blacnas para eventos recurrentes y conocidos.
+
+    Capacitar a los analistas para interpretar alertas de forma eficiente.
+
+
+-- Tarea:
+
+    Diseñar un protocolo de priorización de alertas:
+
+        Investigar cómo diferentes organizaciones priorizan alertas en sus SIEM.
+
+        Diseña un flujo detrabajo que detalle cómo clasificar y priorizar alertas, incuyendo 
+        roles y resposabilidades.
+
+
+-- Formato de entrega breve que explique:
+
+    Los criterios que utilizaste para priorizar las alertas.
+
+    El flujo de trabajo sugerido para gestionarlas.
+
+
+## Conclusión.
+
+    La correcta identifiación y priorización de alertas es fundamental para una gestión eficiente de 
+    la seguridad en un SOCm has aprendido a diferenciar alertas según su importancia y a priorizar recursos 
+    para responder de manera efectiva a las amenazas mas criticas.
