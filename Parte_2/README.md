@@ -295,7 +295,7 @@ de manera eficiente.
 
     Este metodo evalúa 2 factores:
 
-        Impacto potencial: Qué tan grave seria el daño si al amenaza se materializa.
+        Impacto potencial: Qué tan grave seria el daño si la amenaza se materializa.
 
         Probabilidad de ocurrencia: Basada en patrones historicos y comportamientos.
 
@@ -331,7 +331,7 @@ de manera eficiente.
 
     Alerta 3: Instalación de un programa no autorizado en un endpoint.
 
-    Alerta 4:   Inicio de sesion de un servidor critico desde una ubicacion no habitual.
+    Alerta 4: Inicio de sesion de un servidor critico desde una ubicacion no habitual.
 
 
 -- Instrucciones para la actividad:
@@ -352,6 +352,32 @@ de manera eficiente.
         2: Razón detras de la clasificación.
 
         3: Respuesta inmediata sugerida sugerida para alerta de mayor prioridad.
+
+
+-- Entrega completa:
+
+    Alerta 1:
+        Impacto y probabilidad 'baja/alta' (depende a que cuenta intente acceder la IP).
+        Prioridad 'baja'.
+        Protocolo de respuesta: Rastreo/geolocalización de IP, verificación/rastreo de cuenta a la cual se intenta iniciar sesion.
+
+    Alerta 2:
+         Impacto y probabilidad: 'Alta'.
+         Prioridad: Alta.
+         Protocolo de respuesta: Aislar el servidor comprometido, verificación de los datos transferidos (con 
+         fecha y hora del suceso), rastrear/geolocalizar IP y los implicados en el servidor comprometido.
+
+    Alerta 3:
+        Impacto y probabilidad: 'medio/alta' (depende el software instalado).
+        Prioridad: 'Media'
+        Protocolo de respuesta: Verificación del programa/software instalado y su alcance.
+
+    Alerta 4: 
+        Impacto y probabilidad: 'medio/alta' (depende si hay conocimiento previo de dicho inicio de sesion, 
+        es decir, si se a avisado que tal inicio de sesion ocurriria).
+        Prioridad: 'Media/alta'
+        Protocolo de respuesta: Rastreo y verificación de la IP, verificación del servidor critico (Si hubo 
+        algun movimiento sospechoso como transferencias de datos), aislamiento del servidor (de ser necesario), Fecha y hora del inicio de sesion.
 
 
 
