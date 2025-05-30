@@ -411,7 +411,7 @@ de manera eficiente.
 
         Investigar cómo diferentes organizaciones priorizan alertas en sus SIEM.
 
-        Diseña un flujo detrabajo que detalle cómo clasificar y priorizar alertas, incuyendo 
+        Diseña un flujo de trabajo que detalle cómo clasificar y priorizar alertas, incuyendo 
         roles y resposabilidades.
 
 
@@ -420,6 +420,26 @@ de manera eficiente.
     Los criterios que utilizaste para priorizar las alertas.
 
     El flujo de trabajo sugerido para gestionarlas.
+
+
+
+-- Entrega de tarea (Investigación):
+
+    Cada organización configura sus alertas según sus necesidades, utilizando reglas predefinidas, aprendizaje 
+    automático y análisis contextual para identificar patrones anómalos, ademas los 'SIEM' pueden integrarse 
+    con otras herramientas de seguridad para mejorar la respuesta a incidentes.
+
+    -- Flujo de trabajo:
+
+        1: Recepción de alertas : El 'SIEM' detecta una actividad sospechosa.
+        2: Filtrado básico: Se descartan alertas irrelevantes (Analista SOC 1).
+        3: Clasificación: Se analiza la amenaza y se asigna categoria (Analista SOC 2).
+        4: Priorización: Se evalúa el nivel de riesgo y urgencia (Especialista en Ciberseguridad).
+        5: Respuesta y escalamiento: Si es grave, se activa acción inmediata (CSIRT, Computer Segurity 
+        Incident Response Team).
+        6: Cierre y mejora: Se documenta el incidente y se ajustan reglas (Gestion de riesgos).
+
+        -- De esta forma, este proceso asegura eficiencia y rapidez.
 
 
 ## Conclusión.
