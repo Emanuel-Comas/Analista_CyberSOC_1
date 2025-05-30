@@ -444,6 +444,10 @@ de manera eficiente.
 
 ## Conclusión.
 
-    La correcta identifiación y priorización de alertas es fundamental para una gestión eficiente de 
+    La correcta identificación y priorización de alertas es fundamental para una gestión eficiente de 
     la seguridad en un SOCm has aprendido a diferenciar alertas según su importancia y a priorizar recursos 
     para responder de manera efectiva a las amenazas mas criticas.
+
+
+
+# Casos prácticos de análisis de alertas.
