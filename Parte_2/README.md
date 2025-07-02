@@ -451,3 +451,113 @@ de manera eficiente.
 
 
 # Casos prácticos de análisis de alertas.
+
+    -- Aplicar los conocimientos adquiridos sobre identificación y priorización de alertas a travéz de 
+    casos prácticos, desarrollando habilidades de analizar eventos de seguridad y responder a incidentes 
+    en un entorno simulado.
+
+
+## Introducción al análisis de alertas.
+
+    -- Consiste en interpretar eventos generados por sistemas de seguridad para determinar, identificar 
+    amenazas reales y tomar decisiones informadas, este análisis incluye:
+
+        -- Reconocer patrones y correlacionar eventos.
+        -- Confirmar si una alerta representa una amenaza real.
+        -- Identificar acciones necesarias para mitigar el riesgo.
+
+    
+    -- Pasos para el análisis de alertas:
+
+        1 - Revisión de datos disponibles : Examinar los logs relaciónados con la alerta.
+        2 - Contextualización : Verificar información como dirección IP, usuario o dispositivo involucrado.
+        3 - Determinación de riesgo : Evaluar la prioridad e impacto del evento.
+        4 - Respuesta y documentación : Registrar las acciones tomadas y ajustar configuraciónes si es 
+        necesario.
+
+
+## Ejemplo de log de Firewall.
+
+    -- Un Firewall generó una alerta indicando un intento de conexión desde una IP externa sospechosa.
+
+    -- Log del Firewall:
+
+        Dec 01 2024 14:35:21 FW1 TRAFFIC ACCEPT TCP src=192.168.1.10 dst=203.0.113.45 src_port=55243 dst_port=443 rule="Allow Web Traffic"
+
+        Dec 01 2024 14:35:25 FW1 TRAFFIC DENY TCP src=198.51.100.12 dst=192.168.1.10 src_port=34221 dst_port=3389 rule="Block RDP"
+
+        Dec 01 2024 14:35:30 FW1 TRAFFIC ALERT TCP src=198.51.100.12 dst=192.168.1.10 src_port=34222 dst_port=3389 rule="Suspicious Connection Attempt"
+
+    -- Análisis:
+
+        -- Revisión del log:
+
+            -- Primera linea: Conexión legitima de un dispositivo interno hacia un servidor externo usando 'HTTPS'.
+
+            -- Segunda linea: Intento bloqueado de conexión 'RDP' (Remote Desktop Protocol), desde una IP externa.
+
+            -- Tercera linea: Alerta de conexión sospechosa a 'RDP' desde la misma 'IP' externa.
+
+        
+        -- Contextualización:
+
+            -- La IP '198.51.100.12' intentó conexiónes al puerto 'RDP' (3389), lo que podria indicar un 'ataque de fuerza bruta'.
+
+        -- Determinación de riesgo:
+
+            -- Prioridad Alta: Puerto 'RDP' es un vector común para ataques.
+
+        -- Acciones recomendadas:
+
+            -- Bloquear la IP sospechosa a nivel Firewall.
+            -- Revisar los logs del servidor para verificar intentos de acceso adicionales.
+            -- Implementar medidas de seguridad adicionales, como limitar el acceso al 'RDP' por 'VPN'.
+
+
+## Ejemplo de evento en Windows.
+
+    -- El 'SIEM' genera una alerta basada en eventos anómalos en un servidor Windows.
+
+    -- Log del sistema Windows (ID 4625):
+
+        EventID: 4625  
+        Account Name: admin  
+        Logon Type: 3  
+        Source Network Address: 203.0.113.45  
+        Failure Reason: Unknown user name or bad password
+
+    -- Log adicional (ID 4688):
+
+         EventID: 4688  
+        New Process Name: C:\Windows\System32\cmd.exe  
+        Creator Process ID: 3624  
+        Account Name: admin  
+        Source Network Address: 203.0.113.45
+
+
+    -- Análisis:
+
+        -- Revisión del log:
+
+            -- Evento 4625 : Múltiples fallidos de inicio de sesión en la cuenta 'admin' desde la IP 
+            '203.0.113.45'.
+            -- Evento 4688 : Creación de un proceso 'cmd.exe' en el mismo servidor, asociado al mismo origen.
+
+        -- Contextualización:
+        
+            -- Estos eventos pueden indicar un intento de 'fuerza bruta' exitoso seguido de ejecución de 
+            comandos maliciosos.
+
+        -- Determinación de riesgo:
+
+            -- Prioridad Alta : Indicadores de compromiso claros 'LoCs' (Linbes of Commitments, es decir, 
+            Lineas de compromiso.) en un servidor critico.
+
+        -- Acciones recomendadas:
+
+            -- Aislar el servidor afectado.
+            -- Verificar procesos y servicios en ejecución.
+            -- Revisar configuraciones de seguridad y logs adicionales para determinar el alcance.
+
+
+## Casos practicos.
