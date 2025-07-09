@@ -561,3 +561,14 @@ de manera eficiente.
 
 
 ## Casos practicos.
+
+    -- Caso 1: Acceso fallido a 'RDP' desde una IP externa.
+
+        -- Contexto: Una alerta indica múltiples intentos de acceso fallido a 'RDP' desde una IP externa.
+
+        -- Datos disponibles:
+
+            -- Logs del firewall muestran intentos de conexión recurrentes al puerto '3389'
+            -- El sistema Windows muestra eventos 4625 de fallos de incio de sesión.
+
+        -- Tareas:
