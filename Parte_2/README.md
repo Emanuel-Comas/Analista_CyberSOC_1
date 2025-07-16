@@ -572,3 +572,12 @@ de manera eficiente.
             -- El sistema Windows muestra eventos 4625 de fallos de incio de sesión.
 
         -- Tareas:
+
+            a: Analiza los logs del firewall y del sistema Windows.
+            b: Identifica si la IP debe ser bloqueada y otras medidas necesarias.
+                -- La IP deberia ser bloqueada, investigar que esta corriendo en el puerto '3389'.
+            c: Propón una respuesta y documenta tus hallazgos.
+                -- Rastrear la IP al origen y verificar si pertenece a una lista negra.
+
+
+    -- Caso 2: Tráfico sospechoso desde un servidor interno.
