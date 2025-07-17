@@ -581,3 +581,23 @@ de manera eficiente.
 
 
     -- Caso 2: Tráfico sospechoso desde un servidor interno.
+
+        -- Contexto: Una alerta del 'Firewall' indica tráfico inusual desde un servidor interno hacia una 'IP' 
+        maliciosa.
+
+        -- Datos disponibles:
+
+            -- Logs del 'Firewall' muestran conexiones 'HTTPS' hacia una IP '198.51.100.50'.
+            -- No se reportan procesos nuevos en el sistema.
+
+        -- Tareas:
+
+            a: Analizar el tráfico registrado en el 'Firewall'.
+            b: Sugiere pasos para investigar el servidor y asegurar su integridad.
+                -- Investigar quien esta usando el servidor, si esta autorizado, y que contiene dicho servidor.
+            c: Define acciones correlativas para mitigar la amenaza.
+                -- En caso de no estar autorizado, aislar y bloquear servidor, verificar si hubo envio de datos, rastrear la IP y detener al personal de dicho servidor para interrogarlo.
+
+## Actividad Individual.
+
+    -- Titulo: "Análisis de alertas y respuestas a incidentes."
