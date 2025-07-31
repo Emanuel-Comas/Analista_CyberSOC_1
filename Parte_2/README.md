@@ -601,3 +601,37 @@ de manera eficiente.
 ## Actividad Individual.
 
     -- Titulo: "Análisis de alertas y respuestas a incidentes."
+
+    -- Instrucciónes:
+
+        1- Selecciona uno de los casos prácticos proporcionados:
+
+            -- Caso seleccionado: 'Caso 2 (Tráfico sospechoso).'
+
+        2- Analiza lso logs disponibles y responde las siguientes preguntas:
+
+            a - Cuál es el evento principal y su posible causa?.
+
+            b - Cómo priorizarias la alerta?.
+
+            c - Qué pasos tomarias para investigar y responder?.
+
+        -- Escribe in breve informe explicando tu análisis, decisiones y acciones recomendadas:
+
+            2.a - Alerta de 'firewall' indicando tráfico inusual desde un servidor interno hacia una IP 
+            maliciosa, posiblemente un envio de datos no autorizado.
+
+            2.b - Investigar que contiene el servidor interno, sus movimientos actuales, luegos los mas 
+            antiguos(en caso de ser necesario).
+
+            2.c - Aislamiento del servidor y personal a cargo, investigar que movimientos hubo hacia esa IP 
+            maliciosa y rastrear su origen (en caso de ser necesario).
+
+
+## Conclusión del módulo.
+
+    -- Este módulo te ha permitido trabajar con ejemplos reales de logs de 'firewall y Windows', 
+    desarrolalndo habilidades prácticas para analizar alertas y tomar decisiones informadas en la 
+    gestión de incidentes.
+    El análisis de casos prácticos fortalece tu capacidad para identificar amenazas y responder 
+    de manera efectiva en un entorno 'SOC'.
