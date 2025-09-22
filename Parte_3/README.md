@@ -157,14 +157,19 @@
 
     -- Instrucciones:
 
-        -- Analiza lso logs proporcionados para Windows y FortiGate.
+        -- Analiza los logs proporcionados para Windows y FortiGate.
         -- Define reglas de correlación para detectar:
             -- Más de 3 intentos fallidos de inicio de sesión desde la misma IP en 5 minutos.
+                Bloquear IP y rastrear su origen.
             -- Tráfico recurrente a puertos bloqueados, por ejemplo, RDP, SSH.
+                Revisar logs en busqueda de intentos exitosos.
         -- Escribe un breve informe que incluya:
             -- Descripción de los eventos clave que estás monitoreando.
+                Log de intentso fallidos de inicio de sesión.
             -- Reglas configuradas y razones detrás de ellas.
+                Si hay mas de 5 eventos con el mismo ID del log, generar una alerta.
             -- Acciones recomendadas para mitigar las amenazas detectadas.
+                Bloquedo y aislamiento del servidor comprometido y rastreo de la IP atacante.
 
 
 ## Conclusión del módulo.
@@ -172,3 +177,52 @@
     La monitorización en tiempo real es una herramienta poderosa para detectar amenazas y responder, 
     de manera proactiva, con eejmplos prácticos de logs y reglas de correlación, este modulo ha preparado 
     a los estudiantes para implementar configuraciónes efectivas en entornos SOC.
+
+
+# Análisis de eventos y detección de patrones sospechosos.
+
+    Aprender a analizar eventos de seguridad para identificar patrones sospechosos, utilizando ejemplos reales de logs de Firewall, FortiGate, Windows Server y el SIEM Wazuh.
+
+
+## Importanciadel análisis de eventos.
+
+    El análisis de eventos implica examinar logs generados por dispositivos y sistemas para identificar 
+    comportamientos anómalos o maliciosos, la correlación entre eventos aparentemente aislados puede 
+    revelar patrones sospechosos que representen amenazaas reales.
+
+
+-- Beneficios del análisis de patrones.
+    
+    1 - Detección temprana de ataques: Identifica comportamientos sospechosos antes de que causen daños.
+
+    2 - Contextualización de amenazas: Amplia el análisis utilizando herramientas externas como 
+    VirusTotal y ANY.RUN.
+
+    3 - Optimización del monitoreo: Mejora reglas y procesos de detección basados en evidencia.
+
+-- Tipos comunes de patrones sospechosos.
+
+    -- Actividad repetitiva desde la misma IP o cuenta.
+    -- Uso anómalo de recursos del sistema.
+    -- Comportamiento fuera del horario habitual.
+
+
+## Fuentes de datos clave.
+
+    -- Firewall FortiGate: Detedcta intentos de conexión sospechosos, tráfico a puertos bloqueados y 
+    actividad maliciosa.
+
+    -- Windows Server: Registra intentos de inicio de sesión, creación de procesos y modificaciónes del sistema.
+
+    -- Wazuh(SIEM): Correlaciona eventos de múltiples fuentes. genera alertas y proporciona visibilidad 
+    centralizada.
+
+    -- VirusTotal y ANY.RUN: 
+        -- VirusTotal: Herramienta para analizar hashes de archivos, direcciónes IP, URLs y dominios 
+        en busca de indicadores de compromiso conocidos.
+
+    -- ANY.RUN: Sandbox interactivo para analizar archivos maliciosos y obtener información detallada 
+    sobre su comportamiento.
+
+
+## Ejemplos de análisis de eventos.
