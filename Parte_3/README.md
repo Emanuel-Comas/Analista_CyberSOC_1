@@ -226,3 +226,135 @@
 
 
 ## Ejemplos de análisis de eventos.
+
+    -- Ejemplo 1 - FortiGate – Tráfico a Puertos Bloqueados:
+
+        -- Log del Firewall:
+
+            date=2024-12-02 time=15:12:34 log_id=0100040000 type=traffic subtype=deny  
+            src=203.0.113.12 src_port=55023 dst=192.168.1.20 dst_port=3389  
+            service=RDP action=deny msg="Blocked by policy 110"
+
+        -- Análisis: 
+
+            - Evento: Intento de acceso al puerto 3389 (RDP), bloqueado por la política del firewall.
+            - Fuente: IP 203.0.113.12.
+            - Destino: Servidor 192.168.1.20.
+            - Patrón Detectado: Repetidos intentos desde la misma IP indican posible ataque de fuerza 
+            bruta.
+
+        -- Acciones:
+
+            1 - Bloquear la IP 203.0.113.12.
+            2 - Verificar si el puerto 3389 está expuesto públicamente y limitar el acceso.
+            3 - Consultar VirusTotal para investigar la IP y determinar si está asociada con actividades maliciosas.
+
+        -- Uso de Virus Total:
+
+            - Ingresa la IP 203.0.113.12 en VirusTotal para verificar si está reportada como maliciosa.
+            
+            - Analiza los resultados: Si la IP está asociada con botnets o intentos de ataque, aumenta la prioridad de la alerta.
+
+
+    -- Ejemplo 2 - Windows Server – Inicio de Sesión Fallido:
+
+        -- Log de Seguridad (Event ID 4625):
+
+            Log Name: Security  
+            Source: Microsoft-Windows-Security-Auditing  
+            Event ID: 4625  
+            Account Name: administrator  
+            Logon Type: 3 (Network)  
+            Source Network Address: 198.51.100.45  
+            Failure Reason: Unknown user name or bad password
+
+        -- Análisis:
+
+            - Evento: Inicio de sesión fallido en la cuenta administrator.
+            - Fuente: IP 198.51.100.45.
+            - Patrón Detectado: Múltiples intentos fallidos en un corto período podrían indicar fuerza bruta.
+
+        -- Acciones:
+
+            1 - Revisar si hubo intentos exitosos posteriores.
+            2 - Consultar VirusTotal para investigar la IP 198.51.100.45.
+            3 - Si la IP está clasificada como maliciosa, configurarla en listas de bloqueo.
+
+    -- Ejemplo 3 - Wazuh – Detección de Malware por Hash:
+
+        -- Alerta en Wazuh:
+
+            Alert ID: 10002  
+            Rule: File Integrity Monitoring  
+            File: C:\Temp\invoice2024.exe  
+            Hash: f7e2d7b0b8a8b0c3d5a8977f80c9ad55  
+            Action: Detected
+
+        -- Análisis:
+
+            - Evento: Detección de un archivo sospechoso en el sistema.
+            - Archivo: invoice2024.exe.
+            - Hash: f7e2d7b0b8a8b0c3d5a8977f80c9ad55
+
+        -- Acciones:
+
+            1 - Consultar VirusTotal para verificar el hash del archivo.
+                - VirusTotal indica que el hash corresponde a un malware conocido.
+
+            2 - Enviar el archivo a ANY.RUN para analizar su comportamiento.
+                - El sandbox muestra que el archivo intenta conectarse a un servidor C2.
+
+            3 - Aislar el sistema afectado, eliminar el archivo y verificar si hubo exfiltración de datos.
+
+
+## Caso práctico:
+
+    -- Escenario: El 'SIEM' ha generado alertas para los siguientes eventos:
+
+        1 - Tráfico sospechoso detectado por el firewall hacia un puerto bloqueado.
+        2 - Múltiples intentos fallidos de inicio de sesión en un servidor Windows.
+        3 - Un archivo sospechoso identificado en un endpoint.
+
+    -- Tareas del estudiante:
+
+        1 - Analiza los logs proporcionados.
+        2 - Usa VirusTotal para investigar una IP o hash sospechoso.
+        3 - Si se detecta un archivo sospechoso, describe cómo lo analizarías en ANY.RUN y qué datos buscarías.
+
+        4 - Documenta los pasos de respuesta y tus hallazgos.
+
+
+## Buenas prácticas para detección de patrones.
+
+    1 - Correlacionar eventos: Usa el SIEM para relacionar actividad entre diferentes sistemas (e.g., firewall y servidor).
+
+    2 - Automatizar consultas en VirusTotal: Configura el SIEM para consultar automáticamente IPs y hashes en plataformas de inteligencia de amenazas.
+
+    3 - Analizar en sandbox: Antes de ejecutar archivos desconocidos, utiliza ANY.RUN para evaluar comportamientos peligrosos.
+
+    4 - Priorizar alertas críticas: Enfócate en eventos que involucren cuentas privilegiadas o sistemas críticos.
+
+## Actividad individual.
+
+    -- Título: "Análisis y Detección de Patrones Sospechosos"
+
+        -- Instrucciónes:
+
+            1 - Revisa los logs de los ejemplos anteriores (FortiGate, Windows Server, Wazuh).
+            2 - Utiliza VirusTotal para investigar una IP o hash sospechoso y documenta los hallazgos.
+            3 - Describe cómo utilizarías ANY.RUN para analizar un archivo sospechoso y qué información buscarías en el reporte.
+
+            4 - Escribe un informe breve sobre los patrones sospechosos detectados y las acciones recomendadas.
+
+
+## Conclusión del modulo.
+
+    El análisis de eventos y detección de patrones sospechosos es esencial para un analista CyberSOC. Herramientas como VirusTotal y ANY.RUN enriquecen el análisis al proporcionar inteligencia accionable sobre archivos, IPs y dominios.
+
+
+    -- Tarea adicional: Explora otras herramientas de análisis de malware o IPs, como Hybrid Analysis o AbuseIPDB. Compara sus características con VirusTotal y ANY.RUN, y describe cómo podrías integrarlas en tu flujo de trabajo.
+
+
+
+
+#   Prácticas de monitorización en entornos simulados.
