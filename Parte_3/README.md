@@ -179,7 +179,7 @@
     a los estudiantes para implementar configuraciónes efectivas en entornos SOC.
 
 
-# Análisis de eventos y detección de patrones sospechosos.
+## Análisis de eventos y detección de patrones sospechosos.
 
     Aprender a analizar eventos de seguridad para identificar patrones sospechosos, utilizando ejemplos reales de logs de Firewall, FortiGate, Windows Server y el SIEM Wazuh.
 
@@ -357,17 +357,17 @@
 
 
 
-#   Prácticas de monitorización en entornos simulados.
+##   Prácticas de monitorización en entornos simulados.
 
 -- Objetivo del Módulo:
 
     Poner en práctica las habilidades de monitorización mediante el análisis de eventos reales simulados, incluyendo ejemplos de ataques con ransomware, Golden Ticket (técnica de ataque a Kerberos) y exploración de red con Nmap. Se guiará al estudiante en la identificación de patrones sospechosos y la implementación de respuestas.
 
-# Introducción.
+## Introducción.
 
     El análisis de eventos en entornos simulados proporciona una experiencia práctica que permite a los analistas mejorar su capacidad para detectar y responder a incidentes de seguridad.
 
-# Escenarios simulados.
+## Escenarios simulados.
 
     -- Escenario 1: Ataque de Ransomware Detectado:
         
@@ -478,7 +478,7 @@
                 Configurar reglas para limitar la velocidad de conexiones entrantes por IP.
 
 
-# Actividad Práctica.
+## Actividad Práctica.
 
     -- Título: "Análisis y Respuesta a Incidentes Simulados"
 
@@ -501,7 +501,7 @@
                 Acciones tomadas y razones detrás de ellas.
 
 
-# Buenas Prácticas.
+## Buenas Prácticas.
 
     1 - Configurar Alertas Clave: Monitorea eventos críticos como creación de procesos, actividad en puertos sensibles y accesos privilegiados.
 
@@ -512,6 +512,6 @@
     4 - Practicar en Entornos Controlados: Simula regularmente escenarios avanzados como ransomware y ataques Kerberos.
 
 
-# Conclusión del Módulo.
+## Conclusión del Módulo.
 
     Este módulo ha proporcionado experiencias prácticas en la detección y respuesta a incidentes, usando ejemplos de ransomware, Golden Ticket y exploración de red. Estas simulaciones fortalecen la capacidad de los analistas para identificar patrones sospechosos y reaccionar con rapidez y precisión.
