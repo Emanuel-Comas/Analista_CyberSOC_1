@@ -358,3 +358,160 @@
 
 
 #   Prácticas de monitorización en entornos simulados.
+
+-- Objetivo del Módulo:
+
+    Poner en práctica las habilidades de monitorización mediante el análisis de eventos reales simulados, incluyendo ejemplos de ataques con ransomware, Golden Ticket (técnica de ataque a Kerberos) y exploración de red con Nmap. Se guiará al estudiante en la identificación de patrones sospechosos y la implementación de respuestas.
+
+# Introducción.
+
+    El análisis de eventos en entornos simulados proporciona una experiencia práctica que permite a los analistas mejorar su capacidad para detectar y responder a incidentes de seguridad.
+
+# Escenarios simulados.
+
+    -- Escenario 1: Ataque de Ransomware Detectado:
+        
+        -- Descripción:
+
+            Un usuario ejecuta un archivo adjunto de un correo electrónico malicioso, lo que inicia un ransomware que encripta archivos en el sistema. Los eventos generados incluyen la detección de un archivo ejecutable sospechoso y actividad anómala en el sistema.
+
+        -- Logs generados:
+
+            -- Wazuh (File Integrity Monitoring):
+
+                Alert ID: 40001  
+                Rule: Suspicious File Creation  
+                File: C:\Users\Victim\Documents\important.docx.locked  
+                Hash: b1c3d4e5f67890aabbccddeeffg33445  
+                Action: Detected
+
+            -- Windows Event Log (Event ID 4688):
+
+                EventID: 4688.
+
+                New Process Name: C:\Windows\System32\encryptor.exe  
+                Creator Process ID: 4050  
+                Account Name: victim  
+                Command Line: encryptor.exe -target "C:\Users\Victim\Documents"  
+
+            -- Acciónes Recomendadas:
+
+                1 - Utilizar VirusTotal para analizar el hash b1c3d4e5f67890aabbccddeeffg33445 y confirmar si está asociado con ransomware.
+
+                2 - Aislar el sistema afectado para evitar la propagación del ransomware.
+                3 - Analizar la fuente del archivo ejecutable (correo electrónico, descarga, etc.).
+                4 - Restaurar los datos desde un respaldo, si está disponible.
+
+    -- Escenario 2: Ataque de Golden Ticket en Kerberos:
+
+        -- Descripción:
+
+            Un atacante utiliza credenciales comprometidas para crear un Golden Ticket, otorgándose acceso persistente y completo al dominio.
+
+        -- Logs Generados:
+
+            -- Windows Security Log (Event ID 4769)
+
+                EventID: 4769  
+                Account Name: attacker$  
+                Service Name: krbtgt  
+                Ticket Options: 0x40810010  
+                Client Address: 10.10.10.50  
+                Failure Code: 0x0  
+
+
+            -- Wazuh (Suspicious Kerberos Activity)
+
+                Alert ID: 50002  
+                Rule: Kerberos Ticket Anomaly Detected  
+                Service Name: krbtgt  
+                Ticket Duration: 10 years  
+                Action: Detected
+
+        -- Patrón Detectado.
+
+            Ticket con duración anómala (10 años).
+            Solicitud de Ticket-Granting Service (TGS) con privilegios elevados.
+
+
+        -- Acciones Recomendadas
+
+            Identificar si la cuenta attacker$ es legítima y revisar su actividad.
+            Restablecer la clave del servicio krbtgt para invalidar el Golden Ticket.
+            Revisar logs adicionales para determinar el origen de las credenciales comprometidas.
+            Auditar accesos y permisos en el dominio para detectar otras actividades sospechosas.
+
+
+    -- Escenario 3: Exploración de Red Detectada con Nmap:
+
+        -- Descripción:
+
+            Un atacante utiliza Nmap para explorar los puertos abiertos en un servidor corporativo. Los logs indican múltiples conexiones rápidas y sin éxito.
+
+
+        -- Logs Generados:
+
+            -- FortiGate (Firewall Log)
+
+                date=2024-12-02 time=14:25:32 log_id=0100040000 type=traffic subtype=deny  
+                src=203.0.113.20 src_port=53421 dst=192.168.1.50 dst_port=22  
+                service=SSH action=deny msg="Port scan detected"
+
+
+            -- Wazuh (Port Scanning Detection)
+
+                Alert ID: 60001  
+                Rule: Port Scanning Activity Detected  
+                Source IP: 203.0.113.20  
+                Scanned Ports: 22, 80, 443, 3389  
+                Action: Detected
+
+            -- Patrón Detectado
+
+                Varias solicitudes desde la misma IP a diferentes puertos en un corto período.
+                Uso típico de herramientas de exploración, como Nmap.
+
+            -- Acciones Recomendadas
+
+                Bloquear la IP 203.0.113.20 en el firewall.
+                Revisar si otros sistemas han recibido tráfico desde la misma IP.
+                Configurar reglas para limitar la velocidad de conexiones entrantes por IP.
+
+
+# Actividad Práctica.
+
+    -- Título: "Análisis y Respuesta a Incidentes Simulados"
+
+        Instrucciones:
+
+            1 - Selecciona uno de los escenarios simulados (ransomware, Golden Ticket, o exploración de red).
+
+            2 - Analiza los logs proporcionados para identificar el evento sospechoso y correlacionar la información.
+
+            3 - Utiliza herramientas como VirusTotal para verificar hashes o direcciones IP.
+
+            4 - Documenta las acciones que tomarías para responder al incidente, incluyendo mitigaciones y recomendaciones futuras.
+
+        -- Entrega esperada:
+
+            -- Un informe breve que contenga:
+
+                Descripción del incidente detectado.
+                Evidencia de los eventos analizados.
+                Acciones tomadas y razones detrás de ellas.
+
+
+# Buenas Prácticas.
+
+    1 - Configurar Alertas Clave: Monitorea eventos críticos como creación de procesos, actividad en puertos sensibles y accesos privilegiados.
+
+    2 - Usar Herramientas de Enriquecimiento: Integra VirusTotal y Wazuh para mejorar la detección de amenazas.
+
+    3 - Auditar Configuraciones Periódicamente: Asegúrate de que las reglas y políticas estén optimizadas.
+
+    4 - Practicar en Entornos Controlados: Simula regularmente escenarios avanzados como ransomware y ataques Kerberos.
+
+
+# Conclusión del Módulo.
+
+    Este módulo ha proporcionado experiencias prácticas en la detección y respuesta a incidentes, usando ejemplos de ransomware, Golden Ticket y exploración de red. Estas simulaciones fortalecen la capacidad de los analistas para identificar patrones sospechosos y reaccionar con rapidez y precisión.
