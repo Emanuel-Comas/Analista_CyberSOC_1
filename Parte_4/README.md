@@ -211,3 +211,206 @@
 
 
 # Técnicas de Análisis de Logs para Identificar Actividades Maliciosas.
+
+    -- Objetivo del Módulo:
+
+        Aprender a aplicar técnicas avanzadas de análisis de logs para identificar actividades maliciosas como la ejecución de malware, ataques de ransomware y exfiltración de datos. Este módulo incluye ejemplos prácticos y un ejercicio de investigación al final.
+
+
+## Por Qué es Crucial el Análisis de Logs?
+
+    Los logs son la principal fuente de información para detectar actividades maliciosas. Eventos que parecen inofensivos individualmente pueden formar patrones sospechosos cuando se correlacionan. Analizar estos eventos permite identificar ataques en curso, anticipar amenazas y responder eficazmente.
+
+
+## Técnicas de Análisis de Logs.
+
+    -- Análisis Basado en Patrones:
+
+        -- Identifica patrones específicos en los logs, como múltiples intentos de inicio de sesión fallidos en poco tiempo.
+
+        -- Herramientas como Wazuh o Kibana permiten configurar reglas para reconocer estos comportamientos.
+
+    -- Correlación de Eventos:
+
+        -- Relaciona eventos de diferentes sistemas, como un intento fallido de inicio de sesión en Windows seguido de actividad anómala en el firewall.
+
+        -- Los SIEM como Wazuh o Splunk automatizan este proceso.
+
+    -- Detección de Anomalías:
+
+        -- Busca comportamientos fuera de lo común, como un usuario accediendo al sistema en horarios inusuales.
+
+        -- Herramientas como Elastic SIEM permiten visualizar picos de actividad y tendencias anómalas.
+
+
+## Ejemplo 1: Ejecución de Malware Detectada.
+
+    -- Contexto:
+
+        Un usuario descarga un archivo adjunto de un correo electrónico que contiene malware. Los logs capturan su actividad sospechosa.
+
+    -- Logs Generados.
+
+        -- Windows Event Log (ID 4688):
+
+            EventID: 4688  
+            New Process Name: C:\Users\User\Temp\malicious.exe  
+            Command Line: malicious.exe -install  
+            Account Name: user  
+            Source Network Address: 203.0.113.50  
+
+        -- Wazuh (File Integrity Monitoring):
+
+            Alert ID: 30001  
+            Rule: Suspicious File Created  
+            File: C:\Users\User\Temp\malicious.exe  
+            Hash: a1b2c3d4e5f67890  
+
+        -- Análisis:
+
+            -- El archivo malicious.exe se detectó en una ubicación temporal, indicando una posible instalación maliciosa.
+
+            -- Usar VirusTotal para analizar el hash del archivo confirma que corresponde a un malware conocido.  
+
+        -- Acciones Recomendadas.
+
+            -- Aislar el sistema afectado.
+
+            -- Eliminar el archivo detectado y realizar un análisis completo del sistema.
+
+            -- Revisar el origen del archivo (correo o URL) para identificar otros usuarios potencialmente afectados.
+
+        
+## Ejemplo 2: Ataque de Ransomware.
+
+    -- Contexto:
+    
+        Un ransomware encripta archivos críticos en el sistema tras ejecutarse.
+
+    -- Logs Generados: 
+
+        -- Wazuh Alert (File Integrity Monitoring):
+
+            Alert ID: 40002  
+            Rule: Mass File Modification Detected  
+            Directory: C:\Users\User\Documents  
+            Files Modified: 50  
+            Action: Detected 
+
+        -- Windows Event Log (ID 4624):
+
+            EventID: 4624  
+            Account Name: user01  
+            Logon Type: 2 (Interactive)  
+            Source Network Address: 192.168.1.10  
+
+        -- Windows Security Log (ID 4688):
+
+            EventID: 4688  
+            New Process Name: C:\Windows\System32\encryptor.exe  
+            Command Line: encryptor.exe -target "C:\Users\User\Documents"  
+
+    
+    -- Análisis:
+
+        -- El proceso encryptor.exe comenzó a modificar masivamente archivos en la carpeta Documents.
+
+        -- El usuario user01 accedió al sistema antes de que se iniciara el proceso, posiblemente ejecutando el ransomware.
+
+    -- Acciones Recomendadas:
+
+        -- Desconectar el sistema afectado de la red para evitar propagación.
+
+        -- Identificar el origen del ransomware (correo, descarga).
+
+        -- Restaurar archivos desde respaldos si están disponibles.
+
+    
+## Ejemplo 3: Exfiltración de Datos.
+
+    -- Contexto:
+
+        -- Un atacante utiliza una herramienta para transferir datos sensibles a un servidor remoto.
+
+    -- Logs Generados:
+
+        -- Firewall FortiGate:
+
+            date=2024-12-02 time=14:25:32 log_id=0100040000 type=traffic subtype=allow  
+            src=192.168.1.100 src_port=50234 dst=198.51.100.200 dst_port=443  
+            data_transferred=50MB msg="Large data upload detected"
+
+        -- Windows Security Log (ID 4769):
+
+            EventID: 4769  
+            Service Name: fileserver01  
+            Client Address: 192.168.1.100  
+            Action: Access Granted  
+
+    -- Análisis:
+
+        -- La IP interna 192.168.1.100 transfirió 50 MB de datos a un servidor externo (198.51.100.200).
+
+        -- El acceso al recurso compartido fileserver01 coincide con la transferencia detectada.
+
+    --Acciones Recomendadas:
+
+        -- Bloquear la IP 198.51.100.200 en el firewall.
+
+        -- Auditar los archivos accesados desde fileserver01 para determinar la información comprometida.
+
+        -- Revisar los permisos de la cuenta utilizada para evitar futuros accesos indebidos.
+
+
+## Buenas Prácticas en el Análisis de Logs.
+
+    -- Automatización con SIEM: Utiliza herramientas como Wazuh o Splunk para configurar reglas de detección automáticas.
+
+    -- Correlación Multifuente: Integra logs de servidores, firewalls y endpoints para obtener un panorama completo.
+
+    -- Priorizar Eventos Críticos: Configura alertas para actividades como creación de procesos, modificaciones masivas de archivos y transferencias de datos.
+
+    -- Capacitación Continua: Mantente actualizado sobre técnicas de análisis y nuevas amenaza
+
+
+## Actividad Práctica.
+
+    -- Título: "Investigación de Actividad Sospechosa en Logs".
+
+    -- Instrucciones:
+
+        -- Revisa los siguientes logs simulados:
+
+            -- Log 1 (Wazuh):
+
+                Alert ID: 30003  
+                Rule: Suspicious File Created  
+                File: C:\Temp\encryptor.exe  
+                Hash: b1c2d3e4f5g67890  
+
+            -- Log 2 (Firewall):
+
+                date=2024-12-02 time=15:10:22 log_id=0100040000 type=traffic subtype=allow  
+                src=192.168.1.15 src_port=53421 dst=203.0.113.50 dst_port=443  
+                data_transferred=100MB msg="Large file upload detected"
+
+            
+    -- Responde:
+
+        ¿Qué actividad sospechosa detectas?
+        ¿Cómo correlacionarías los eventos entre ambos logs?
+        ¿Qué acciones tomarías para mitigar el posible incidente?
+
+
+    -- Entrega esperada:
+
+            -- Un breve informe que incluya:
+
+                Descripción de la actividad maliciosa detectada.
+                Correlación entre logs.
+                Acciones de mitigación recomendadas.
+
+    
+## Conclusión del Módulo.
+
+    El análisis de logs es una habilidad crítica para identificar actividades maliciosas. Este módulo ha explorado cómo detectar ejecuciones de malware, ataques de ransomware y exfiltración de datos mediante técnicas avanzadas y ejemplos prácticos. Con la práctica, los analistas pueden optimizar la detección y respuesta a amenazas en tiempo real.
