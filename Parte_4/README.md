@@ -414,3 +414,218 @@
 ## Conclusión del Módulo.
 
     El análisis de logs es una habilidad crítica para identificar actividades maliciosas. Este módulo ha explorado cómo detectar ejecuciones de malware, ataques de ransomware y exfiltración de datos mediante técnicas avanzadas y ejemplos prácticos. Con la práctica, los analistas pueden optimizar la detección y respuesta a amenazas en tiempo real.
+
+
+
+
+# Ejercicios prácticos de análisis de logs con herramientas especializadas.
+
+    -- Objetivo del Módulo
+    
+        Desarrollar habilidades prácticas en el análisis de logs utilizando herramientas especializadas como Wazuh, VirusTotal, y ANY.RUN. Los ejercicios estarán orientados a identificar patrones maliciosos, correlacionar eventos y responder a incidentes.
+
+
+## Introducción al Análisis de Logs con Herramientas Especializadas.
+
+    El uso de herramientas específicas en el análisis de logs permite automatizar tareas, identificar patrones más rápidamente y enriquecer los datos con inteligencia de amenazas. Esto es clave para mejorar la precisión y la rapidez en la respuesta a incidentes.
+
+    -- Beneficios de Usar Herramientas Especializadas:
+
+        1 - Automatización: Reducen el esfuerzo manual al correlacionar eventos automáticamente.
+
+        2 - Detección avanzada: Identifican patrones complejos que podrían pasar desapercibidos en análisis manuales.
+
+        3 - Enriquecimiento de datos: Proporcionan contexto adicional a eventos sospechosos, como reputación de IPs o hashes maliciosos.
+
+    -- Herramientas que Utilizaremos:
+        Wazuh: SIEM para correlación y generación de alertas.
+        VirusTotal: Para análisis de archivos, hashes, IPs y URLs.
+        ANY.RUN: Sandbox interactivo para evaluar comportamientos de archivos sospechosos.
+
+
+## Ejercicios Prácticos.
+
+    -- Ejercicio 1: Identificación de un Archivo Sospechoso.
+
+        -- Escenario:
+
+            El SIEM Wazuh genera una alerta indicando que un archivo desconocido fue creado en un endpoint. Se sospecha que puede ser un malware.
+
+        -- Logs generados:
+
+            Wazuh (File Integrity Monitoring)
+
+                Alert ID: 60001  
+                Rule: Suspicious File Detected  
+                File: C:\Users\Public\invoice2024.exe  
+                Hash: f7e2d7b0b8a8b0c3d5a8977f80c9ad55  
+
+        -- Pasos del Análisis:
+
+            Revisión del log en Wazuh:
+
+                Confirma el origen del archivo y la cuenta asociada.
+
+                Identifica el hash (f7e2d7b0b8a8b0c3d5a8977f80c9ad55) para buscarlo en VirusTotal.
+
+            Investigación avanzada con ANY.RUN:
+
+                Sube el archivo al sandbox.
+
+                Observa el comportamiento del archivo, como conexiones a dominios externos, modificación de archivos o creación de procesos.
+
+
+        Resultado Esperado:
+
+            El archivo es identificado como malware por múltiples motores de VirusTotal y ANY.RUN revela que intenta conectarse a un servidor externo.
+
+
+        Acciones Recomendadas:
+
+            Aislar el endpoint afectado.
+
+            Eliminar el archivo sospechoso.
+
+            Revisar las conexiones realizadas desde el sistema afectado para identificar posibles exfiltraciones.
+
+
+    -- Ejercicio 2: Correlación de Eventos para Detectar Escaneo de Red.
+
+        -- Escenario:
+
+            Un atacante utiliza una herramienta como Nmap para escanear puertos abiertos en una red corporativa. Los logs del firewall y del SIEM reflejan la actividad sospechosa.
+
+        -- Logs Generados:
+
+            Firewall FortiGate:
+
+                date=2024-12-03 time=10:25:45 log_id=0100040000 type=traffic subtype=deny  
+                src=203.0.113.45 src_port=45234 dst=192.168.1.100 dst_port=22  
+                action=deny msg="Port scan detected"
+
+
+            Wazuh (Suspicious Activity):
+
+                Alert ID: 60002  
+                Rule: Port Scanning Activity  
+                Source IP: 203.0.113.45  
+                Scanned Ports: 22, 80, 443, 3389  
+
+
+
+        Pasos del Análisis:
+
+            Revisión del log en FortiGate:
+
+                Identifica la fuente del tráfico (203.0.113.45).
+
+                Observa que se intentaron varias conexiones en puertos críticos (SSH, HTTPS, RDP).
+
+            Correlación en Wazuh:
+
+                Confirma que la misma IP está escaneando múltiples puertos en distintos dispositivos.
+
+            Análisis en VirusTotal:
+
+                Busca la IP en VirusTotal para verificar si está catalogada como maliciosa o parte de una botnet.
+
+
+        -- Resultado Esperado:
+
+            La IP 203.0.113.45 aparece en listas negras en VirusTotal, confirmando que está asociada con actividades maliciosas.
+
+
+        Acciones Recomendadas:
+
+            Bloquear la IP en el firewall para evitar accesos futuros.
+            Revisar si otros sistemas han recibido tráfico desde la misma IP.
+            Configurar alertas automáticas en el SIEM para detectar patrones similares en el futuro.
+
+
+    -- Ejercicio 3: Detectando Exfiltración de Datos.
+
+        -- Escenario:
+
+            Un atacante utiliza una cuenta comprometida para transferir grandes volúmenes de datos a un servidor externo.
+
+        -- Logs Generados:
+
+            Wazuh (Unusual Activity Detected):
+
+                Alert ID: 70003  
+                Rule: Large Data Transfer  
+                User: compromised_user  
+                Destination: 198.51.100.50  
+                Data Size: 500MB  
+
+            Firewall FortiGate:
+
+                date=2024-12-03 time=11:15:30 log_id=0200020000 type=traffic subtype=allow  
+                src=192.168.1.10 src_port=50234 dst=198.51.100.50 dst_port=443  
+                service=https data_transferred=500MB msg="Large file upload detected"
+
+        Pasos del Análisis:
+
+            Revisión del log en Wazuh:
+
+                Identifica al usuario y el tamaño de la transferencia.
+
+                Confirma que los datos fueron enviados a 198.51.100.50.
+
+            Revisión en el firewall:
+
+                Verifica el tráfico asociado a la IP de destino.
+
+            Investigación en VirusTotal:
+
+                Busca la IP del servidor externo en VirusTotal para determinar si está relacionada con actividades maliciosas.
+
+
+        Resultado Esperado:
+
+            El servidor 198.51.100.50 está identificado como parte de un esquema de exfiltración de datos.
+
+
+        Acciones Recomendadas:
+
+            Bloquear la IP en el firewall.
+            Revocar las credenciales del usuario comprometido.
+            Realizar una auditoría para identificar qué datos fueron exfiltrados.
+
+
+## Actividad Práctica.
+
+    -- Título: "Análisis Integral de un Incidente con Wazuh y VirusTotal"
+
+    Instrucciones:
+
+        Revisa los siguientes logs:
+
+            Log 1 (Wazuh):
+
+                Alert ID: 80001  
+                Rule: Suspicious Process Detected  
+                File: C:\Temp\suspicious.exe  
+                Hash: b2c3d4e5f67890123456789abcdef123 
+
+            Log 2 (FortiGate):
+
+                date=2024-12-03 time=12:20:45 log_id=0100040000 type=traffic subtype=allow  
+                src=192.168.1.15 src_port=54321 dst=203.0.113.75 dst_port=443  
+                data_transferred=200MB msg="File upload detected"
+
+        Analiza los eventos utilizando:
+
+            Wazuh para correlacionar las actividades.
+            VirusTotal para verificar el hash del archivo y la IP del servidor externo.
+
+        Documenta tus hallazgos en un informe breve, incluyendo:
+
+            Descripción del incidente detectado.
+            Herramientas utilizadas y resultados.
+            Acciones recomendadas para mitigar el riesgo.
+
+
+## Conclusión del Módulo.
+
+    Este módulo ha proporcionado ejercicios prácticos para analizar logs utilizando herramientas especializadas, permitiendo a los estudiantes aplicar técnicas avanzadas para detectar y responder a incidentes. Estas habilidades son esenciales para trabajar en entornos SOC modernos.
